@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>로그인</title>
+    <title>Login</title>
 </head>
 <body>
-    <h1>로그인</h1>
+    <h1>Login</h1>
 </body>
 </html>
