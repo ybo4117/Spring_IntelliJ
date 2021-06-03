@@ -5,9 +5,12 @@
 <mapper namespace="com.koreait.spring.user.UserMapper">
     <insert id="insUser">
         INSERT INTO t_user
-        (u_id, u_pw, u_nm, gender)
-        VALUES
-        (#{uid},#{upw},#{unm},#{gender})
+            (u_id, u_pw, u_nm, gender)
+        VALUES (#{u_id}, #{u_pw}, #{u_nm}, #{gender})
     </insert>
 
+    <select id="selUser" resultType="UserEntity">
+        SELECT * from t_user
+        where u_id =#{u_id}
+    </select>
 </mapper>
