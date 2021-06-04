@@ -5,11 +5,24 @@
 <mapper namespace="com.koreait.spring.board.BoardMapper">
 
     <select id="selBoardList" resultType="BoardDomain">
-        SELECT A.iboard, A.title, A.i_user, A.regdt,
-               B.u_nm as WriterNm, B.profileImg
+        SELECT A.iboard,
+               A.title,
+               A.i_user,
+               A.regdt,
+               B.u_nm as WriterNm,
+               B.profileImg
         FROM t_board A
-                 INNER JOIN t_user B ON A.i_user = B.i_user
+        INNER JOIN t_user B ON A.i_user = B.i_user
         ORDER BY iboard DESC;
+
+    </select>
+
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.title, A.regdt, A.i_user, A.ctnt, B.u_nm AS writerNm
+        FROM t_board A
+        LEFT JOIN t_user B
+        ON A.i_user = B.i_user
+        WHERE A.iboard = #{iboard};
 
     </select>
 </mapper>

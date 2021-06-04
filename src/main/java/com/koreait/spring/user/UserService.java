@@ -5,11 +5,16 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class UserService {
 
     @Autowired
     private UserMapper mapper;
+
+    @Autowired
+    private HttpSession session;
 
     public String login(UserEntity param) {
         UserEntity result=mapper.selUser(param);
@@ -17,6 +22,9 @@ public class UserService {
         if(result == null) { //아이디 없음
             return "redirect:/user/login?err=1";
         } else if(BCrypt.checkpw(param.getU_pw(), result.getU_pw())) { //로그인 성공
+            //세션처리
+            result.setU_pw(null);
+            session.setAttribute("loginUser", result);
             return "redirect:/board/list";
         } else { //TODO: 비밀번호 틀림
             return "redirect:/user/login?err=2";
