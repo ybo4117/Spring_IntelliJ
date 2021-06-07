@@ -8,9 +8,9 @@
     <script defer src="/res/js/boardDetail.js"></script>
 </head>
 <body>
-<div>
-    <a href="#" onclick="goBack();">돌아가기</a>
-</div>
+<%--<div>--%>
+<%--    <a href="#" onclick="goBack();">돌아가기</a>--%>
+<%--</div>--%>
 
 <c:if test="${loginUser.i_user == data.i_user}">
     <div>
@@ -38,7 +38,9 @@
     </div>
 </c:if>
 
-<div id="cmtList" data-login-user-pk="${sessionScope.loginUser.i_user}"	data-iboard="${param.iboard}"></div>
+<div id="cmtList" data-login-user-pk="${sessionScope.loginUser.i_user}"
+     data-iboard="${param.iboard}"></div>
+
 
 </body>
 </html>

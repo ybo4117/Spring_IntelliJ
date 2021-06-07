@@ -23,10 +23,15 @@ function regCmt() {
 function regAjax(param) {
 	const init = {
 		method: 'POST',
-		body: JSON.stringify(param)
+		body: JSON.stringify(param),
+		headers:{
+			'accept' : 'application/json',
+			'content-type' : 'application/json;charset=UTF-8'
+		}
+
 	};
 
-	fetch('cmtInsSel', init)
+	fetch('cmtIns', init)
 		.then(function(res) {
 			return res.json();
 		})
@@ -50,7 +55,7 @@ function regAjax(param) {
 function getListAjax() {
 	var iboard = cmtListElem.dataset.iboard;
 
-	fetch('cmtInsSel?iboard=' + iboard)
+	fetch('cmtSel?iboard=' + iboard)
 		.then(function(res) {
 			return res.json();
 		})
@@ -204,7 +209,7 @@ function closeModModal() {
 	cmtModModalElem.className = 'displayNone';
 }
 
-//getListAjax(); // 이 파일이 임포트되면 함수 1회 호출!!
+getListAjax(); // 이 파일이 임포트되면 함수 1회 호출!!
 
 
 

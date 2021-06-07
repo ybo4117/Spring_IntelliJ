@@ -3,7 +3,9 @@ package com.koreait.spring.board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -34,12 +36,26 @@ public class BoardController {
     }
 
     @ResponseBody
-    @RequestMapping("/cmtInsSel")
-    public Map<String, Integer> cmtInsSel(){
+    @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
+    public Map<String, Integer> cmtIns(@RequestBody BoardCmtEntity param){
+        System.out.println("param = " + param);
+
+        int result = service.insBoardCmt(param);
+
         Map<String, Integer> data = new HashMap<>();
-        data.put("result", 1);
-        data.put("age", 30);
+        data.put("result", result);
 
         return data;
     }
+
+    @ResponseBody
+    @RequestMapping("/cmtSel")
+    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param){
+        System.out.println("param = " + param);
+
+        return service.selBoardCmtList(param);
+    }
+
+
+
 }

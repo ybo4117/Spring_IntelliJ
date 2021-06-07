@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardDomain extends BoardEntity {
-    private String WriterNm;
+public class BoardCmtDomain extends BoardCmtEntity{
+    private String writerNm;
     private String profileImg;
 }
