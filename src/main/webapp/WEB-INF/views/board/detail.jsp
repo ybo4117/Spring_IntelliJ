@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <title>Detail</title>
     <link rel="stylesheet" href="/res/css/boardDetail.css">
+    <link rel="stylesheet" href="/res/css/common.css">
     <script defer src="/res/js/boardDetail.js"></script>
 </head>
 <body>
-<%--<div>--%>
-<%--    <a href="#" onclick="goBack();">돌아가기</a>--%>
-<%--</div>--%>
+<div>
+    <a href="#" onclick="goBack();">돌아가기</a>
+</div>
 
 <c:if test="${loginUser.i_user == data.i_user}">
     <div>
@@ -33,7 +34,7 @@
     <div>
         <form id="cmtFrm" onsubmit="return false;">
             <input type="text" id="cmt" placeholder="댓글" onkeyup="enterKey();">
-            <input type="button" value="댓글" onclick="regCmt();" >
+            <input type="button" value="댓글" onclick="regCmt();">
         </form>
     </div>
 </c:if>
@@ -41,6 +42,16 @@
 <div id="cmtList" data-login-user-pk="${sessionScope.loginUser.i_user}"
      data-iboard="${param.iboard}"></div>
 
+<div id="modal" class="displayNone">
+    <div class="modal_content">
+        <form id="cmtModFrm" action="#">
+            <input type="hidden" id="icmt">
+            <input type="text" id="modCmt">
+        </form>
+        <input type="button" value="댓글 수정" onclick="modAjax();">
+        <input type="button" value="취소" onclick="closeModModal();">
+    </div>
+</div>
 
 </body>
 </html>

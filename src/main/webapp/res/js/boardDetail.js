@@ -31,7 +31,7 @@ function regAjax(param) {
 
 	};
 
-	fetch('cmtIns', init)
+	fetch('cmt/', init)
 		.then(function(res) {
 			return res.json();
 		})
@@ -55,7 +55,7 @@ function regAjax(param) {
 function getListAjax() {
 	var iboard = cmtListElem.dataset.iboard;
 
-	fetch('cmtSel?iboard=' + iboard)
+	fetch('cmt/' + iboard)
 		.then(function(res) {
 			return res.json();
 		})
@@ -89,7 +89,7 @@ function makeCmtElemList(data) {
 	tableElem.append(trElemTitle);
 	cmtListElem.append(tableElem);
 
-	var loginUserPk = cmtListElem.dataset.login_user_pk;
+	var loginUserPk = cmtListElem.dataset.loginUserPk;
 
 	data.forEach(function(item) {
 		var trElemCtnt = document.createElement('tr');
@@ -104,7 +104,7 @@ function makeCmtElemList(data) {
 		tdElemRegdate.append(item.regdate);
 		//tdElemBigo.append(item.??);
 
-		if (parseInt(loginUserPk) === item.iuser) {
+		if (parseInt(loginUserPk) === item.i_user) {
 			var delBtn = document.createElement('button');
 			var modBtn = document.createElement('button');
 
@@ -112,6 +112,7 @@ function makeCmtElemList(data) {
 			delBtn.addEventListener('click', function() {
 
 				if (confirm('삭제하시겠습니까?')) {
+					// if문안에 내장함수 타입 -> boolean
 					delAjax(item.icmt);
 				}
 			});
@@ -142,7 +143,7 @@ function makeCmtElemList(data) {
 }
 
 function delAjax(icmt) {
-	fetch('cmtDelUpd?icmt=' + icmt)
+	fetch('cmt/' + icmt, {method: 'DELETE'})
 		.then(function(res) {
 			return res.json();
 		})
@@ -166,22 +167,28 @@ function modAjax() {
 	var cmtModFrmElem = document.querySelector('#cmtModFrm');
 	var param = {
 		icmt: cmtModFrmElem.icmt.value,
-		cmt: cmtModFrmElem.cmt.value
+		cmt: cmtModFrmElem.modCmt.value
+
 	}
 
 	const init = {
-		method: 'POST',
-		body: new URLSearchParams(param)
+		method: 'PUT',
+		body: JSON.stringify(param),
+
+		headers:{
+			'accept' : 'application/json',
+			'content-type' : 'application/json;charset=UTF-8'
+		}
 	};
 
-	fetch('cmtDelUpd', init)
+	fetch('cmt', init)
 		.then(function(res) {
 			return res.json();
 		})
-		.then(function(myJson) {
-			console.log(myJson);
+		.then(function(data) {
+			console.log(data);
 			
-			switch (myJson.result) {
+			switch (data.result) {
 				case 0:
 					alert('수정 실패!');
 					break;
@@ -202,7 +209,7 @@ function openModModal({ icmt, cmt }) {
 
 	var cmtModFrmElem = document.querySelector('#cmtModFrm');
 	cmtModFrmElem.icmt.value = icmt;
-	cmtModFrmElem.cmt.value = cmt;
+	cmtModFrmElem.modCmt.value = cmt;
 }
 
 function closeModModal() {

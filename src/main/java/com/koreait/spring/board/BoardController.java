@@ -3,10 +3,7 @@ package com.koreait.spring.board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +33,7 @@ public class BoardController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
+    @RequestMapping(value = "/cmt", method = RequestMethod.POST)
     public Map<String, Integer> cmtIns(@RequestBody BoardCmtEntity param){
         System.out.println("param = " + param);
 
@@ -49,11 +46,31 @@ public class BoardController {
     }
 
     @ResponseBody
-    @RequestMapping("/cmtSel")
-    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param){
-        System.out.println("param = " + param);
-
+    @RequestMapping("/cmt/{iboard}")
+    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param ,@PathVariable("iboard") int iboard){
+        param.setIboard(iboard);
         return service.selBoardCmtList(param);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/cmt",method = RequestMethod.PUT)
+    public Map<String, Integer> cmtUpd(@RequestBody BoardCmtEntity param){
+        int result = service.updBoardCmt(param);
+        Map<String, Integer> data = new HashMap<>();
+        data.put("result",result);
+
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/cmt/{icmt}", method = RequestMethod.DELETE)
+    public Map<String, Integer> cmtDel(BoardCmtEntity param,@PathVariable("icmt") int icmt){
+
+        int result = service.delBoardCmt(param);
+        Map<String, Integer> data = new HashMap<>();
+        data.put("result",result);
+
+        return data;
     }
 
 

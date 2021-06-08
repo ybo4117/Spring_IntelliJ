@@ -10,5 +10,10 @@ public interface BoardCmtMapper {
 
     List<BoardCmtDomain> selBoardCmtList(BoardCmtEntity param);
     //여러줄을 가져오기때문에 List를 붙힌다.
+
+    int updBoardCmt(BoardCmtEntity param);
+
+    int delBoardCmt(BoardCmtEntity param);
+
 }
 // select 제외하고 나머지 int del upd 는 리턴타입이 ins, void 줘도 상관없음

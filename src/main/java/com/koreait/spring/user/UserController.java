@@ -3,9 +3,11 @@ package com.koreait.spring.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,8 +41,6 @@ public class UserController {
 
     }
 
-
-
     @RequestMapping("/join")
     public String join(){ return "user/join"; }
 
@@ -49,5 +49,17 @@ public class UserController {
         System.out.println("uid" + param);
         service.join(param);
         return "redirect:/user/login";
+    }
+
+    @RequestMapping("/profile")
+    public String profile(){
+        return "user/profile";
+    }
+
+    //@RequestMapping(value = "/profile", method = RequestMethod.POST)
+    // 위 아래가 post방식으로 같다.
+    @PostMapping("/profile") //@RequestParam("profileImg") jsp의 값을 받아오는 이름과 같기에 생략가능
+    public String profile(@RequestParam("profileImg") MultipartFile profileImg){ // MultipartFile[] < 여러파일 옮길때
+        return "redirect:" + service.uploadProfile(profileImg);
     }
 }

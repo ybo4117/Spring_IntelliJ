@@ -12,7 +12,10 @@
 </head>
 <body>
 <h1>List</h1>
-<div>로그인 아이디 : ${sessionScope.loginUser.u_id}</div>
+<div>
+    <span>로그인 아이디 : ${sessionScope.loginUser.u_id}</span>
+    <span><a href="/user/profile">프로필</a></span>
+</div>
 <table>
 
     <tr>
