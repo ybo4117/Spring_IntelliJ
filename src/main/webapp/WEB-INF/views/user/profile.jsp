@@ -1,11 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>ProFile</title>
-</head>
-<body>
+
 <c:choose>
     <c:when test="${empty sessionScope.loginUser.profileImg}">
         <c:set var="img" value="/res/img/noprofile.jpg"/>
@@ -29,5 +24,4 @@
     <div>NAME : ${sessionScope.loginUser.u_nm}</div>
 
 </div>
-</body>
-</html>
+

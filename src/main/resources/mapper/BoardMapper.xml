@@ -4,6 +4,13 @@
 
 <mapper namespace="com.koreait.spring.board.BoardMapper">
 
+    <insert id="insBoard">
+        INSERT INTO t_board
+        (title, ctnt, i_user)
+        VALUES
+        (#{title}, #{title}, #{i_user})
+    </insert>
+
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.iboard,
                A.title,

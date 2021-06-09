@@ -1,11 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Join</title>
-</head>
-<body>
+
 <h1>Join</h1>
 <form id='frm' action="join" method="post">
     <div>
@@ -36,5 +31,3 @@
 
 </form>
 
-</body>
-</html>

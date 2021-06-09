@@ -1,21 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-    <link rel="stylesheet" href="/res/css/common.css">
-    <link rel="stylesheet" href="/res/css/boardList.css">
-    <script defer src="/res/js/boardList.js"></script>
-
-</head>
-<body>
-<h1>List</h1>
-<div>
-    <span>로그인 아이디 : ${sessionScope.loginUser.u_id}</span>
-    <span><a href="/user/profile">프로필</a></span>
-</div>
+<%--<div>--%>
+<%--    <span>로그인 아이디 : ${sessionScope.loginUser.u_id}</span>--%>
+<%--    <span><a href="/user/profile">프로필</a></span>--%>
+<%--</div>--%>
 <table>
 
     <tr>
@@ -44,8 +33,7 @@
 
                 </c:when>
                 <c:otherwise>
-                    <c:set var="img"
-                           value="/res/img/user/${item.i_user}/${item.profileImg}"/>
+                    <c:set var="img" value="/img/${item.i_user}/${item.profileImg}"/>
                 </c:otherwise>
             </c:choose>
 
@@ -63,5 +51,3 @@
     </c:forEach>
 </table>
 
-</body>
-</html>

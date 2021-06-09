@@ -26,6 +26,19 @@ public class BoardService {
         return mapper.selBoard(param);
     }
 
+    // return값은 iboard값
+    public int writeMod(BoardEntity param){
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setI_user(loginUser.getI_user());
+
+        if(param.getIboard() == 0){
+            //등록
+            return 0;
+        }
+        //수정
+        return 0;
+    }
+
     public int insBoardCmt(BoardCmtEntity param){
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
         param.setI_user(loginUser.getI_user());

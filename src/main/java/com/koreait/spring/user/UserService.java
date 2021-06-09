@@ -48,7 +48,7 @@ public class UserService {
         final String PATH = "D:/springImg/" + loginUser.getI_user();
 
         File folder = new File(PATH);
-        folder.mkdirs();
+        folder.mkdirs(); // 폴더가 없으면 만들어라는 명령어
 
         String ext = FilenameUtils.getExtension(img.getOriginalFilename());
         String fileNm = UUID.randomUUID().toString() + "." + ext;
@@ -56,6 +56,12 @@ public class UserService {
         File target = new File(PATH + "/" + fileNm);
         try {
             img.transferTo(target);
+
+            //이전 이미지 삭제
+            File delFile = new File(PATH + "/" + loginUser.getProfileImg());
+            if(delFile.exists()){
+                delFile.delete();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
