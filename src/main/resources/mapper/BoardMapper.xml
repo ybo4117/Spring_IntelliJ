@@ -4,7 +4,7 @@
 
 <mapper namespace="com.koreait.spring.board.BoardMapper">
 
-    <insert id="insBoard">
+    <insert id="insBoard" useGeneratedKeys="true" keyProperty="iboard">
         INSERT INTO t_board
         (title, ctnt, i_user)
         VALUES
@@ -25,11 +25,22 @@
     </select>
 
     <select id="selBoard" resultType="BoardDomain">
-        SELECT A.title, A.regdt, A.i_user, A.ctnt, B.u_nm AS writerNm
+        SELECT A.title, A.regdt, A.i_user, A.ctnt, A.iboard ,B.u_nm AS writerNm
         FROM t_board A
         LEFT JOIN t_user B
         ON A.i_user = B.i_user
         WHERE A.iboard = #{iboard};
 
     </select>
+
+    <update id="updBoard">
+        UPDATE t_board SET
+        title = #{title}, ctnt = #{ctnt}
+        WHERE iboard = #{iboard} AND i_user = #{i_user}
+    </update>
+
+    <delete id="delBoard">
+        DELETE FROM t_board
+        WHERE iboard = #{iboard} AND i_user = #{i_user}
+    </delete>
 </mapper>

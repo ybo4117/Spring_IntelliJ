@@ -31,7 +31,13 @@
 
     <delete id="delBoardCmt">
         DELETE FROM t_board_cmt
-        WHERE icmt = #{icmt} AND i_user = #{i_user}
+        WHERE
+        <if test="iboard > 0">
+            iboard = #{iboard}
+        </if>
+        <if test="icmt > 0">
+            icmt = #{icmt} AND i_user = #{i_user}
+        </if>
     </delete>
 
 

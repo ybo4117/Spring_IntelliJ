@@ -28,20 +28,32 @@ public class BoardController {
     public String detail(BoardDTO param, Model model){
         System.out.println("iboard : " + param.getIboard());
         BoardDomain data = service.selBoard(param);
-        model.addAttribute("data",data);
-        return "/board/detail";
+        model.addAttribute(data);
+        return "board/detail";
     }
 
     @GetMapping("/writeMod")
-    public void writeMod(){
-
+    public void writeMod(BoardDTO param, Model model){
+        System.out.println("param = " + param.getIboard());
+        if(param.getIboard() > 0) {
+            model.addAttribute("data", service.selBoard(param));
+        }
     }
+
     @PostMapping("/writeMod")
-    public String writeMod(BoardEntity param){
+    public String writeModProc(BoardEntity param){
         int iboard = service.writeMod(param);
-        return "redirect:detail?iboard" + iboard;
+        return "redirect:detail?iboard=" + iboard;
     }
 
+    @GetMapping("/delBoard")
+    public String delBoard(BoardEntity param){
+        service.delBoard(param);
+        return "redirect:list";
+    }
+
+
+    //댓글 부분
     @ResponseBody
     @RequestMapping(value = "/cmt", method = RequestMethod.POST)
     public Map<String, Integer> cmtIns(@RequestBody BoardCmtEntity param){
