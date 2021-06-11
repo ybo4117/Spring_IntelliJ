@@ -5,8 +5,24 @@
 <%--    <span>로그인 아이디 : ${sessionScope.loginUser.u_id}</span>--%>
 <%--    <span><a href="/user/profile">프로필</a></span>--%>
 <%--</div>--%>
+<div>
+    <form action="list" id="frm">
+        <input type="hidden" name="page" value="${ param.page == null ? 1 : param.page }">
+        <select name="recordCnt">
+            <c:forEach begin="5" end="20" step="5" var="cnt">
+                <c:choose>
+                    <c:when test="${cnt eq param.recordCnt}">
+                        <option selected>${cnt}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option>${cnt}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select>
+    </form>
+</div>
 <table>
-
     <tr>
         <th>번호</th>
         <th>제목</th>
@@ -25,8 +41,12 @@
                 <c:otherwise>
                     ${item.title}
                 </c:otherwise>
-            </c:choose></td>
-
+            </c:choose>
+            <%--좋아요--%>
+                <c:if test="${not empty sessionScope.loginUser && item.isFav eq 1}">
+                    <i class="fas fa-kiss-wink-heart"></i>
+                </c:if>
+            </td>
             <c:choose>
                 <c:when test="${empty item.profileImg}">
                     <c:set var="img" value="/res/img/noprofile.jpg"/>
@@ -50,4 +70,17 @@
         </tr>
     </c:forEach>
 </table>
+
+<div>
+    <c:forEach begin="1" end="${requestScope.maxPageVal}" var="page">
+        <c:choose>
+            <c:when test="${(empty param.page && page eq 1) || param.page eq page}">
+                <span class="selected">${page}</span>
+            </c:when>
+            <c:otherwise>
+                <span><a href="list?page=${page}&recordCnt=${param.recordCnt}">${page}</a></span>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</div>
 

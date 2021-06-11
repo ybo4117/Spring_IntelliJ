@@ -8,4 +8,5 @@ import lombok.Setter;
 public class BoardDomain extends BoardEntity {
     private String WriterNm;
     private String profileImg;
+    private int isFav;
 }

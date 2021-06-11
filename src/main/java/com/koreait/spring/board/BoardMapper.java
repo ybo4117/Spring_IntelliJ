@@ -6,9 +6,11 @@ import java.util.List;
 
 @Mapper
 public interface BoardMapper {
-    List<BoardDomain> selBoardList();
+    List<BoardDomain> selBoardList(BoardDTO param);
 
     BoardDomain selBoard(BoardDTO param);
+
+    int selMaxpageVal(BoardDTO param);
 
     int insBoard(BoardEntity param);
 

@@ -17,8 +17,21 @@ public class BoardService {
     @Autowired
     private MyUtils myUtils;
 
-    public List<BoardDomain> selBoardList(){
-        return mapper.selBoardList();
+    @Autowired
+    private BoardFavMapper favMapper;
+
+    public int selMaxpageVal(BoardDTO param){
+        return mapper.selMaxpageVal(param);
+    }
+
+    public List<BoardDomain> selBoardList(BoardDTO param){
+        param.setI_user(myUtils.getLoginUserPk());
+
+        int startIdx = (param.getPage() - 1) * param.getRecordCnt();
+
+        param.setStartIdx(startIdx);
+
+        return mapper.selBoardList(param);
     }
 
     public BoardDomain selBoard(BoardDTO param){
@@ -44,9 +57,16 @@ public class BoardService {
         cmtParam.setIboard(param.getIboard());
         cmtMapper.delBoardCmt(cmtParam);
 
+        // 좋아요 취소까지 해야 가능함
+//        BoardFavEntity favParam = new BoardFavEntity();
+//        favParam.setIboard(param.getIboard());
+//        favParam.setDeliboard(1);
+//        favMapper.delBoardFav(favParam);
+
         // 이후 게시글 삭제
         param.setI_user(myUtils.getLoginUserPk());
         return mapper.delBoard(param);
+
     }
 
 

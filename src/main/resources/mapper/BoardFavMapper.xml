@@ -5,9 +5,9 @@
 <mapper namespace="com.koreait.spring.board.BoardFavMapper">
     <insert id="insBoardFav">
     INSERT INTO t_board_fav
-    (ibaord, i_user)
+    (iboard, i_user)
     VALUES
-    ( #{ibaord}, #{i_user} )
+    ( #{iboard}, #{i_user} )
     </insert>
 
     <select id="selBoardFav" resultType="_int">
@@ -19,6 +19,7 @@
     <delete id="delBoardFav">
     DELETE FROM t_board_fav
     WHERE iboard = #{iboard} AND i_user = #{i_user}
+
     </delete>
 
 

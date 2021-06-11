@@ -268,7 +268,7 @@ function delFavAjax() {
 
 //좋아요 여부 값 가져오기
 function getFavAjax() {
-	fetch('fav?iboard=' + cmtListElem.dataset.iboard)
+	fetch('fav/' + cmtListElem.dataset.iboard)
 		.then(function(res) {
 			return res.json();
 		})
@@ -289,9 +289,7 @@ function toggleFav(toggle) {
 			break;
 	}
 }
+
+
 getListAjax(); //이 파일이 임포트되면 함수 1회 호출!
 getFavAjax();
-
-
-
-

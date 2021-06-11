@@ -6,41 +6,57 @@
 
     <insert id="insBoard" useGeneratedKeys="true" keyProperty="iboard">
         INSERT INTO t_board
-        (title, ctnt, i_user)
-        VALUES
-        (#{title}, #{title}, #{i_user})
+            (title, ctnt, i_user)
+        VALUES (#{title}, #{title}, #{i_user})
     </insert>
 
+    <select id="selMaxpageVal" resultType="_int">
+        SELECT CEIL(COUNT(iboard) / #{recordCnt}) FROM t_board
+
+    </select>
+
     <select id="selBoardList" resultType="BoardDomain">
-        SELECT A.iboard,
-               A.title,
-               A.i_user,
-               A.regdt,
-               B.u_nm as WriterNm,
-               B.profileImg
+        SELECT A.iboard, A.title, A.i_user, A.regdt,
+               B.u_nm  as WriterNm, B.profileImg,
+               CASE WHEN C.iboard IS NULL THEN 0 ELSE 1 END AS isFav
         FROM t_board A
         INNER JOIN t_user B ON A.i_user = B.i_user
-        ORDER BY iboard DESC;
+        <if test="selType eq 0">
+            LEFT JOIN t_board_fav C
+        </if>
+        <if test="selType eq 1">
+            INNER JOIN t_board_fav C
+        </if>
+        ON A.iboard = C.iboard
+        AND C.i_user = #{i_user}
+        ORDER BY A.iboard DESC
+        <if test="recordCnt > 0">
+            LIMIT #{startIdx}, #{recordCnt}
+        </if>
 
     </select>
 
     <select id="selBoard" resultType="BoardDomain">
-        SELECT A.title, A.regdt, A.i_user, A.ctnt, A.iboard ,B.u_nm AS writerNm
+        SELECT A.title, A.regdt, A.i_user, A.ctnt, A.iboard, B.u_nm AS writerNm
         FROM t_board A
-        LEFT JOIN t_user B
-        ON A.i_user = B.i_user
+                 LEFT JOIN t_user B
+                           ON A.i_user = B.i_user
         WHERE A.iboard = #{iboard};
 
     </select>
 
     <update id="updBoard">
-        UPDATE t_board SET
-        title = #{title}, ctnt = #{ctnt}
-        WHERE iboard = #{iboard} AND i_user = #{i_user}
+        UPDATE t_board
+        SET title = #{title},
+            ctnt  = #{ctnt}
+        WHERE iboard = #{iboard}
+          AND i_user = #{i_user}
     </update>
 
     <delete id="delBoard">
-        DELETE FROM t_board
-        WHERE iboard = #{iboard} AND i_user = #{i_user}
+        DELETE
+        FROM t_board
+        WHERE iboard = #{iboard}
+          AND i_user = #{i_user}
     </delete>
 </mapper>

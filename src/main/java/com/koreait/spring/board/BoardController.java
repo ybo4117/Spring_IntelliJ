@@ -18,9 +18,10 @@ public class BoardController {
     private BoardService service;
 
     @RequestMapping("/list")
-    public String list(Model model){
-        List<BoardDomain> list =  service.selBoardList();
+    public String list(BoardDTO param, Model model){
+        List<BoardDomain> list =  service.selBoardList(param);
         model.addAttribute("list",list);
+        model.addAttribute("maxPageVal", service.selMaxpageVal(param));
         return "board/list";
     }
 
@@ -95,6 +96,10 @@ public class BoardController {
         return data;
     }
 
+    @GetMapping("/favList")
+    public void favList(){
+
+    }
 
 
 }

@@ -10,7 +10,11 @@
     </div>
 </c:if>
 <h1>${requestScope.boardDomain.title}</h1>
-<div> 글번호 : ${requestScope.boardDomain.iboard} <i id="favIcon" class="far fa-kiss-wink-heart pointer"></i> </div>
+<div> 글번호 : ${requestScope.boardDomain.iboard}
+    <c:if test="${not empty sessionScope.loginUser}">
+    <i id="favIcon" class="far fa-kiss-wink-heart pointer"></i>
+    </c:if>
+</div>
 <div> 글쓴이 : ${requestScope.boardDomain.writerNm} | 작성일 : ${requestScope.boardDomain.regdt} </div>
 <div> <c:out value="${requestScope.boardDomain.ctnt}"/> </div>
 

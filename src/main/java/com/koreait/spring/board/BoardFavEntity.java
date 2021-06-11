@@ -7,4 +7,5 @@ public class BoardFavEntity {
     private int iboard;
     private int i_user;
     private String regdt;
+//    private int deliboard;
 }
