@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController // jsp파일을 여는게 목적이 아닌 JSON을 여는 것이 목적이된다
@@ -25,9 +24,13 @@ public class BoardFavController {
     }
 
     @GetMapping("/fav")
-    public List<BoardDomain> selFavBoardList(BoardDTO param){
+    public Map<String, Object> selFavBoardList(BoardDTO param){
+        Map<String, Object> result = new HashMap<>();
+
         param.setSelType(1);
-        return service2.selBoardList(param);
+        result.put("list", service2.selBoardList(param));
+        result.put("maxPageVal", service2.selMaxpageVal(param));
+        return result;
     }
 
     @GetMapping("/fav/{iboard}")

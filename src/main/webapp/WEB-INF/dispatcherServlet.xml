@@ -21,6 +21,13 @@
     <mvc:resources mapping="/res/**" location="/res/"/>
     <mvc:resources mapping="/img/**" location="file:///D:/springImg/"/>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.koreait.spring.AuthCheckInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!--사용할 파일명을 완성해주는 객체-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>

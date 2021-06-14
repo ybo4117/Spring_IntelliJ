@@ -1,12 +1,33 @@
 const listElem = document.querySelector('#list');
+const pagingElem = document.querySelector('#paging')
 
-function getListAjax(){
-    fetch('fav')
+function getListAjax(page = 1){
+    fetch('fav?page=' + page)
         .then(res => res.json())
         .then(myJson => {
             console.log(myJson);
-            makeView(myJson);
+            makeView(myJson.list);
+            makePaging(myJson.maxPageVal, page);
+
         })
+}
+
+//페이징 view 만들기
+function makePaging(maxPageVal, selectedPage){
+    pagingElem.innerHTML='';
+    for(let i = 1 ; i <= maxPageVal ; i++){
+        const span = document.createElement('span');
+        if(i === selectedPage){
+            span.classList.add('selected');
+        } else{
+            span.classList.add('pointer');
+            span.addEventListener('click', function (){
+                getListAjax(i);
+            });
+        }
+        span.innerText = i;
+        pagingElem.append(span);
+    }
 }
 
 function makeView(data){
