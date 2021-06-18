@@ -45,6 +45,7 @@ public class BoardController {
     public String writeModProc(BoardEntity param){
         int iboard = service.writeMod(param);
         return "redirect:detail?iboard=" + iboard;
+
     }
 
     @GetMapping("/delBoard")

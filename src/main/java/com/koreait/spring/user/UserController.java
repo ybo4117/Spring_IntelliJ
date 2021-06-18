@@ -15,7 +15,7 @@ public class UserController {
 
     @Autowired
     private UserService service;
-
+    //깃허브 구동중
     @RequestMapping("/login")
     public String login(@RequestParam(value = "err", defaultValue = "0") int err, Model model, HttpServletRequest request){
         System.out.println("err : " + err);
